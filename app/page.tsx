@@ -385,7 +385,11 @@ export default function Home() {
             // Check if we still have the lock (lockSessionId matches our session)
             const hasLock = data.lockSessionId === sessionId && data.lockRemainingMs !== undefined && data.lockRemainingMs > 0;
             if (hasLock) {
-              setLockRemainingMs(data.lockRemainingMs);
+              // Only update timer if server time is less than our current time (countdown)
+              // This prevents the timer from jumping backwards/resetting
+              if (data.lockRemainingMs < lockRemainingMs || lockRemainingMs === 0) {
+                setLockRemainingMs(data.lockRemainingMs);
+              }
             } else if (data.lockSessionId && data.lockSessionId !== sessionId) {
               // Locked by someone else, return to view-all
               handleLockExpire();

@@ -34,7 +34,11 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error getting lock:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
+    return NextResponse.json({ 
+      error: errorMessage,
+      details: 'Error accessing lock in KV database'
+    }, { status: 500 });
   }
 }
 
@@ -67,7 +71,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, timestamp: now });
   } catch (error) {
     console.error('Error setting lock:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
+    return NextResponse.json({ 
+      error: errorMessage,
+      details: 'Error setting lock in KV database'
+    }, { status: 500 });
   }
 }
 
@@ -91,7 +99,11 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting lock:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
+    return NextResponse.json({ 
+      error: errorMessage,
+      details: 'Error deleting lock from KV database'
+    }, { status: 500 });
   }
 }
 

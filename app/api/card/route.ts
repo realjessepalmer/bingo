@@ -15,9 +15,11 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error getting card state:', error);
     const errorMessage = error instanceof Error ? error.message : 'Internal server error';
+    const errorStack = error instanceof Error ? error.stack : undefined;
     return NextResponse.json({ 
       error: errorMessage,
-      details: process.env.KV_REST_API_URL ? 'KV connection issue' : 'KV environment variables not configured'
+      stack: process.env.NODE_ENV === 'development' ? errorStack : undefined,
+      details: 'Error accessing KV database'
     }, { status: 500 });
   }
 }
@@ -37,7 +39,11 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error setting card state:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
+    return NextResponse.json({ 
+      error: errorMessage,
+      details: 'Error writing to KV database'
+    }, { status: 500 });
   }
 }
 

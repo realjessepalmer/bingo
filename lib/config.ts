@@ -3,11 +3,12 @@
 export const LOCK_TIMEOUT_MS = 3 * 60 * 1000; // 3 minutes in milliseconds
 
 export const THEATRES = [
-  'Theatre 1',
-  'Theatre 2',
-  'Theatre 3',
-  'Theatre 4',
-  'Theatre 5',
+  'Annenberg',
+  'ARCO',
+  'Festival',
+  'D\'Place',
+  'Camelot',
+  'High School',
 ];
 
 // 5x5 bingo card: 24 items + center free space (index 12)

@@ -16,9 +16,9 @@ export const THEATRES = [
 // Indices: 0-4 (row 1), 5-9 (row 2), 10-14 (row 3), 15-19 (row 4), 20-24 (row 5)
 // Center square is index 12
 export const BINGO_ITEMS = [
-  'Film starts late',
-  'Someone\'s phone rings',
-  'Projector malfunctions',
+  'Filmmaker insists on playing at Dolby 7.0',
+  'House manager wants mic volume up while talent holds mic at their waist',
+  'CPL says F when it\'s clearly a different ratio within a flat container',
   'Audience member falls asleep',
   'Standing ovation',
   'Technical difficulty',
@@ -27,7 +27,7 @@ export const BINGO_ITEMS = [
   'Crowd gasps',
   'Mid-film applause',
   'Cell phone light',
-  'Loud whisperer',
+  'Filmmaker wants volume change during specific part of the film',
   'FREE', // Center square (index 12)
   'Crying in audience',
   'Laughing at wrong moment',

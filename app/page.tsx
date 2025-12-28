@@ -19,6 +19,7 @@ interface CardData {
   confirmedBingos: Array<{ type: 'row' | 'col' | 'diag'; index: number; items: number[] }>;
   isLocked: boolean;
   lockRemainingMs?: number;
+  lockSessionId?: string;
 }
 
 interface LeaderboardData {
@@ -78,19 +79,25 @@ export default function Home() {
       const bingosData = await bingosRes.json();
       const lockData = await lockRes.json();
 
+      // Check if lock belongs to current session
+      const isLockedByMe = lockData.locked && lockData.sessionId === sessionId;
+      const isLockedByOther = lockData.locked && lockData.sessionId !== sessionId;
+
       return {
         markedItems: cardData.markedItems || [],
         comments: commentsData.comments || {},
         middleSquareText: middleSquareData.text || 'FREE',
         confirmedBingos: bingosData.confirmedBingos || [],
-        isLocked: lockData.locked || false,
+        isLocked: isLockedByOther, // Only locked if locked by someone else
+        isLockedByMe: isLockedByMe, // Track if locked by current user
         lockRemainingMs: lockData.remainingMs || 0,
+        lockSessionId: lockData.sessionId,
       };
     } catch (error) {
       console.error('Error fetching card data:', error);
       return null;
     }
-  }, []);
+  }, [sessionId]);
 
   // Fetch all cards data for view-all mode
   const fetchAllCardsData = useCallback(async () => {
@@ -409,7 +416,7 @@ export default function Home() {
         {viewMode === 'view-all' ? (
           <div className="space-y-6">
             <Leaderboard data={leaderboardData} />
-            <ViewAllGrid cardsData={cardsData} onCardClick={handleCardClick} />
+            <ViewAllGrid cardsData={cardsData} onCardClick={handleCardClick} currentSessionId={sessionId} />
           </div>
         ) : (
           <div className="space-y-4">
@@ -438,7 +445,7 @@ export default function Home() {
                 middleSquareText={currentCardData.middleSquareText}
                 confirmedBingos={currentCardData.confirmedBingos}
                 isLocked={currentCardData.isLocked}
-                isEditable={!currentCardData.isLocked}
+                isEditable={true} // Always editable in editing mode (we have the lock)
                 onMarkItem={handleMarkItem}
                 onEditComment={handleEditComment}
                 onEditMiddleSquare={handleEditMiddleSquare}

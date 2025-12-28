@@ -11,14 +11,16 @@ interface CardData {
   confirmedBingos: Array<{ type: 'row' | 'col' | 'diag'; index: number; items: number[] }>;
   isLocked: boolean;
   lockRemainingMs?: number;
+  lockSessionId?: string;
 }
 
 interface ViewAllGridProps {
   cardsData: Record<string, CardData>;
   onCardClick: (theatreId: string) => void;
+  currentSessionId?: string | null;
 }
 
-export default function ViewAllGrid({ cardsData, onCardClick }: ViewAllGridProps) {
+export default function ViewAllGrid({ cardsData, onCardClick, currentSessionId }: ViewAllGridProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
       {THEATRES.map((theatre) => {
@@ -30,22 +32,25 @@ export default function ViewAllGrid({ cardsData, onCardClick }: ViewAllGridProps
           isLocked: false,
         };
 
+        // Card is locked if locked by someone else (not current session)
+        const isLockedByOther = data.isLocked && data.lockSessionId !== currentSessionId;
+
         return (
           <div
             key={theatre}
             className={`
               relative transition-all
-              ${data.isLocked ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:scale-105'}
+              ${isLockedByOther ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:scale-105'}
             `}
             onClick={() => {
-              if (!data.isLocked) {
+              if (!isLockedByOther) {
                 onCardClick(theatre);
               }
             }}
           >
             <div className="mb-2 text-center">
               <h3 className="font-bold text-lg">{theatre}</h3>
-              {data.isLocked && (
+              {isLockedByOther && (
                 <span className="text-xs text-red-600">🔒 Locked (being edited)</span>
               )}
             </div>
@@ -55,10 +60,10 @@ export default function ViewAllGrid({ cardsData, onCardClick }: ViewAllGridProps
               comments={data.comments}
               middleSquareText={data.middleSquareText}
               confirmedBingos={data.confirmedBingos}
-              isLocked={data.isLocked}
+              isLocked={isLockedByOther}
               isEditable={false}
             />
-            {data.isLocked && data.lockRemainingMs !== undefined && (
+            {isLockedByOther && data.lockRemainingMs !== undefined && (
               <div className="text-xs text-center mt-1 text-gray-500">
                 Lock expires in {Math.floor(data.lockRemainingMs / 60000)}:
                 {Math.floor((data.lockRemainingMs % 60000) / 1000).toString().padStart(2, '0')}

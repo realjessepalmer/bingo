@@ -457,8 +457,6 @@ export default function Home() {
                 onBingoDetected={handleBingoDetected}
               />
             )}
-
-            <Leaderboard data={leaderboardData} />
           </div>
         )}
       </main>

@@ -16,36 +16,44 @@ export default function BingoConfirmDialog({
   onConfirm,
   onCancel,
 }: BingoConfirmDialogProps) {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const dialogRef = useRef<HTMLDivElement>(null);
+  const hasInitialized = useRef(false);
 
   useEffect(() => {
-    if (isOpen && !isDragging) {
-      // Center the dialog on first open
+    if (isOpen && !hasInitialized.current) {
+      // Center the dialog on first open only
       setPosition({
         x: window.innerWidth / 2,
         y: 20, // Top of screen
       });
+      hasInitialized.current = true;
+    } else if (!isOpen) {
+      // Reset when dialog closes
+      hasInitialized.current = false;
+      setPosition(null);
     }
-  }, [isOpen, isDragging]);
+  }, [isOpen]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (dialogRef.current) {
+    if (dialogRef.current && position) {
       const rect = dialogRef.current.getBoundingClientRect();
+      // Calculate offset from the center of the dialog (since we use translate -50%)
       setDragOffset({
-        x: e.clientX - rect.left - (rect.width / 2), // Account for transform center
-        y: e.clientY - rect.top,
+        x: e.clientX - position.x,
+        y: e.clientY - position.y,
       });
       setIsDragging(true);
       e.preventDefault();
+      e.stopPropagation();
     }
   };
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (isDragging) {
+      if (isDragging && position) {
         setPosition({
           x: e.clientX - dragOffset.x,
           y: e.clientY - dragOffset.y,
@@ -66,9 +74,9 @@ export default function BingoConfirmDialog({
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging, dragOffset]);
+  }, [isDragging, dragOffset, position]);
 
-  if (!isOpen || !bingoLine) return null;
+  if (!isOpen || !bingoLine || !position) return null;
 
   const lineName = getBingoLineName(bingoLine.type, bingoLine.index);
 

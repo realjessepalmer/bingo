@@ -59,8 +59,7 @@ export default function BingoCard({
   };
 
   const handleCellLongPress = (index: number, e: React.MouseEvent | React.TouchEvent) => {
-    if (!isEditable) return;
-    
+    // Allow comments on all cells, even locked ones
     e.preventDefault();
     if (onEditComment) {
       onEditComment(index);
@@ -105,24 +104,22 @@ export default function BingoCard({
               `}
               onClick={() => handleCellClick(index)}
               onMouseDown={(e) => {
-                if (canEdit) {
-                  const timer = setTimeout(() => {
-                    handleCellLongPress(index, e);
-                  }, 500);
-                  const cleanup = () => clearTimeout(timer);
-                  e.currentTarget.addEventListener('mouseup', cleanup, { once: true });
-                  e.currentTarget.addEventListener('mouseleave', cleanup, { once: true });
-                }
+                // Allow long-press for comments on all cells
+                const timer = setTimeout(() => {
+                  handleCellLongPress(index, e);
+                }, 500);
+                const cleanup = () => clearTimeout(timer);
+                e.currentTarget.addEventListener('mouseup', cleanup, { once: true });
+                e.currentTarget.addEventListener('mouseleave', cleanup, { once: true });
               }}
               onTouchStart={(e) => {
-                if (canEdit) {
-                  const timer = setTimeout(() => {
-                    handleCellLongPress(index, e);
-                  }, 500);
-                  const cleanup = () => clearTimeout(timer);
-                  e.currentTarget.addEventListener('touchend', cleanup, { once: true });
-                  e.currentTarget.addEventListener('touchcancel', cleanup, { once: true });
-                }
+                // Allow long-press for comments on all cells
+                const timer = setTimeout(() => {
+                  handleCellLongPress(index, e);
+                }, 500);
+                const cleanup = () => clearTimeout(timer);
+                e.currentTarget.addEventListener('touchend', cleanup, { once: true });
+                e.currentTarget.addEventListener('touchcancel', cleanup, { once: true });
               }}
             >
               {isCenter ? (
@@ -150,12 +147,19 @@ export default function BingoCard({
                 </>
               )}
               {hasCommentIcon && (
-                <div className="absolute top-0 right-0 w-3 h-3 bg-blue-500 rounded-full text-white text-[8px] flex items-center justify-center">
+                <div className="absolute top-0 right-0 text-xs" title="Has comment">
+                  💬
+                </div>
+              )}
+              {!hasCommentIcon && (
+                <div className="absolute top-0 right-0 text-xs opacity-50" title="Long-press to add comment">
                   💬
                 </div>
               )}
               {locked && (
-                <div className="absolute bottom-0 left-0 w-2 h-2 bg-yellow-500 rounded-full" title="Locked (part of confirmed bingo)" />
+                <div className="absolute bottom-0 left-0 text-xs" title="Locked (part of confirmed bingo)">
+                  🔒
+                </div>
               )}
             </div>
           );

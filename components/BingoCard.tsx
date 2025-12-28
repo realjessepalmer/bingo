@@ -139,27 +139,39 @@ export default function BingoCard({
               ) : (
                 <>
                   <div className="text-[10px] sm:text-xs leading-tight">{item}</div>
-                  {marked && (
-                    <div className="absolute top-0 left-0 text-xs font-bold text-green-600" title="Marked">
-                      ✓
+                </>
+              )}
+              {isEditable && (
+                <>
+                  {hasCommentIcon ? (
+                    <div 
+                      className="absolute top-0 right-0 text-base sm:text-lg cursor-pointer hover:scale-110 transition-transform" 
+                      title="Has comment - click to edit"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (onEditComment) onEditComment(index);
+                      }}
+                    >
+                      💬
+                    </div>
+                  ) : (
+                    <div 
+                      className="absolute top-0 right-0 text-base sm:text-lg opacity-50 cursor-pointer hover:opacity-100 hover:scale-110 transition-all" 
+                      title="Click to add comment"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (onEditComment) onEditComment(index);
+                      }}
+                    >
+                      💬
+                    </div>
+                  )}
+                  {locked && (
+                    <div className="absolute bottom-0 left-0 text-base sm:text-lg" title="Locked (part of confirmed bingo)">
+                      🔒
                     </div>
                   )}
                 </>
-              )}
-              {hasCommentIcon && (
-                <div className="absolute top-0 right-0 text-xs" title="Has comment">
-                  💬
-                </div>
-              )}
-              {!hasCommentIcon && (
-                <div className="absolute top-0 right-0 text-xs opacity-50" title="Long-press to add comment">
-                  💬
-                </div>
-              )}
-              {locked && (
-                <div className="absolute bottom-0 left-0 text-xs" title="Locked (part of confirmed bingo)">
-                  🔒
-                </div>
               )}
             </div>
           );

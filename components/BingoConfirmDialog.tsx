@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useRef, useEffect } from 'react';
 import { getBingoLineName, BingoLine } from '@/lib/bingo';
 
 interface BingoConfirmDialogProps {
@@ -15,6 +16,58 @@ export default function BingoConfirmDialog({
   onConfirm,
   onCancel,
 }: BingoConfirmDialogProps) {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && !isDragging) {
+      // Center the dialog on first open
+      setPosition({
+        x: window.innerWidth / 2,
+        y: 20, // Top of screen
+      });
+    }
+  }, [isOpen, isDragging]);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (dialogRef.current) {
+      const rect = dialogRef.current.getBoundingClientRect();
+      setDragOffset({
+        x: e.clientX - rect.left - (rect.width / 2), // Account for transform center
+        y: e.clientY - rect.top,
+      });
+      setIsDragging(true);
+      e.preventDefault();
+    }
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isDragging) {
+        setPosition({
+          x: e.clientX - dragOffset.x,
+          y: e.clientY - dragOffset.y,
+        });
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragOffset]);
+
   if (!isOpen || !bingoLine) return null;
 
   const lineName = getBingoLineName(bingoLine.type, bingoLine.index);
@@ -32,8 +85,20 @@ export default function BingoConfirmDialog({
   };
 
   return (
-    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-xs px-4 pointer-events-none">
-      <div className="bg-white rounded-lg shadow-2xl p-4 sm:p-6 relative border-2 border-green-500 pointer-events-auto">
+    <div
+      ref={dialogRef}
+      className="fixed z-50 w-full max-w-xs px-4 pointer-events-none"
+      style={{
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        transform: 'translate(-50%, 0)',
+      }}
+    >
+      <div
+        className="bg-white rounded-lg shadow-2xl p-4 sm:p-6 relative border-2 border-green-500 pointer-events-auto"
+        onMouseDown={handleMouseDown}
+        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+      >
         <div className="text-center mb-3">
           <div className="text-4xl sm:text-5xl mb-1">🎉</div>
           <h2 className="text-xl sm:text-2xl font-bold text-green-600 mb-1">BINGO!</h2>
@@ -63,8 +128,10 @@ export default function BingoConfirmDialog({
             Confirm
           </button>
         </div>
+        <div className="absolute top-2 right-2 text-gray-400 text-xs">
+          ╬ (drag to move)
+        </div>
       </div>
     </div>
   );
 }
-

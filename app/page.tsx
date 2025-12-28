@@ -411,6 +411,27 @@ export default function Home() {
 
   const currentCardData = selectedTheatre ? cardsData[selectedTheatre] : null;
 
+  // Handle reset (for testing)
+  const handleReset = useCallback(async () => {
+    if (!confirm('Are you sure you want to reset ALL data? This cannot be undone!')) {
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/reset', { method: 'POST' });
+      if (res.ok) {
+        alert('All data has been reset!');
+        // Refresh the page to reload all data
+        window.location.reload();
+      } else {
+        alert('Error resetting data');
+      }
+    } catch (error) {
+      console.error('Error resetting:', error);
+      alert('Error resetting data');
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-100">
       <header className="bg-white shadow-md p-4">
@@ -420,6 +441,14 @@ export default function Home() {
       <main className="container mx-auto p-4">
         {viewMode === 'view-all' ? (
           <div className="space-y-6">
+            <div className="flex justify-center">
+              <button
+                onClick={handleReset}
+                className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors font-bold text-lg shadow-lg"
+              >
+                🔴 RESET ALL DATA (Testing Only)
+              </button>
+            </div>
             <ViewAllGrid cardsData={cardsData} onCardClick={handleCardClick} currentSessionId={sessionId} />
             <Leaderboard data={leaderboardData} />
           </div>

@@ -14,7 +14,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ markedItems });
   } catch (error) {
     console.error('Error getting card state:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
+    return NextResponse.json({ 
+      error: errorMessage,
+      details: process.env.KV_REST_API_URL ? 'KV connection issue' : 'KV environment variables not configured'
+    }, { status: 500 });
   }
 }
 

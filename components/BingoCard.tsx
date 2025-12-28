@@ -140,8 +140,8 @@ export default function BingoCard({
                 <>
                   <div className="text-[10px] sm:text-xs leading-tight">{item}</div>
                   {marked && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-2xl sm:text-3xl font-bold text-green-600">✓</div>
+                    <div className="absolute top-1 left-1">
+                      <div className="text-lg sm:text-xl font-bold text-green-600">✓</div>
                     </div>
                   )}
                 </>

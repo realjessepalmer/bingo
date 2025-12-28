@@ -204,8 +204,12 @@ export default function Home() {
         body: JSON.stringify({ theatreId: selectedTheatre, markedItems }),
       });
 
-      // Refresh lock timestamp
-      await acquireLock(selectedTheatre);
+      // Refresh lock timestamp on user interaction
+      const lockAcquired = await acquireLock(selectedTheatre);
+      if (lockAcquired) {
+        // Reset timer to full 3 minutes when user interacts
+        setLockRemainingMs(LOCK_TIMEOUT_MS);
+      }
 
       // Refresh card data
       const data = await fetchCardData(selectedTheatre);
@@ -398,16 +402,8 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [viewMode, selectedTheatre, sessionId, fetchAllCardsData, fetchCardData, fetchLeaderboard, handleLockExpire]);
 
-  // Refresh lock on interaction
-  useEffect(() => {
-    if (viewMode === 'editing' && selectedTheatre && sessionId) {
-      const refreshInterval = setInterval(async () => {
-        await acquireLock(selectedTheatre);
-      }, 30000); // Refresh every 30 seconds
-
-      return () => clearInterval(refreshInterval);
-    }
-  }, [viewMode, selectedTheatre, sessionId, acquireLock]);
+  // Note: Lock is refreshed on user interactions (marking items, etc.), not automatically
+  // This prevents the timer from resetting unnecessarily
 
   const currentCardData = selectedTheatre ? cardsData[selectedTheatre] : null;
 

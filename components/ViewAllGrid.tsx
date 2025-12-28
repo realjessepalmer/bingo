@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import BingoCard from './BingoCard';
+import LockCountdownSmall from './LockCountdownSmall';
 import { THEATRES, BINGO_ITEMS, CENTER_SQUARE_INDEX } from '@/lib/config';
 
 interface CardData {
@@ -63,11 +64,8 @@ export default function ViewAllGrid({ cardsData, onCardClick, currentSessionId }
               isLocked={isLockedByOther}
               isEditable={false}
             />
-            {isLockedByOther && data.lockRemainingMs !== undefined && (
-              <div className="text-xs text-center mt-1 text-gray-500">
-                Lock expires in {Math.floor(data.lockRemainingMs / 60000)}:
-                {Math.floor((data.lockRemainingMs % 60000) / 1000).toString().padStart(2, '0')}
-              </div>
+            {isLockedByOther && data.lockRemainingMs !== undefined && data.lockRemainingMs > 0 && (
+              <LockCountdownSmall remainingMs={data.lockRemainingMs} />
             )}
           </div>
         );

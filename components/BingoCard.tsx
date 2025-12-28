@@ -12,6 +12,7 @@ interface BingoCardProps {
   confirmedBingos: Array<{ type: 'row' | 'col' | 'diag'; index: number; items: number[] }>;
   isLocked: boolean;
   isEditable: boolean;
+  compact?: boolean; // For view-all mode
   onMarkItem?: (itemIndex: number) => void;
   onEditComment?: (cellIndex: number) => void;
   onEditMiddleSquare?: () => void;
@@ -26,6 +27,7 @@ export default function BingoCard({
   confirmedBingos,
   isLocked,
   isEditable,
+  compact = false,
   onMarkItem,
   onEditComment,
   onEditMiddleSquare,
@@ -93,15 +95,17 @@ export default function BingoCard({
             <div
               key={index}
               className={`
-                relative aspect-square border-2 rounded p-1 text-xs sm:text-sm
+                relative aspect-square border-2 rounded p-1
                 flex flex-col items-center justify-center text-center
                 min-h-[44px] sm:min-h-[60px]
                 transition-all
+                ${compact ? 'text-[8px] sm:text-[9px]' : 'text-xs sm:text-sm'}
                 ${marked || isCenter ? 'bg-green-200 border-green-500' : 'bg-gray-50 border-gray-300'}
                 ${locked ? 'opacity-75' : ''}
                 ${canEdit ? 'cursor-pointer hover:bg-gray-100 active:bg-gray-200' : 'cursor-default'}
                 ${isCenter ? 'font-bold' : ''}
               `}
+              title={item} // Show full text on hover
               onClick={() => handleCellClick(index)}
               onMouseDown={(e) => {
                 // Allow long-press for comments on all cells
@@ -138,7 +142,9 @@ export default function BingoCard({
                 </div>
               ) : (
                 <>
-                  <div className="text-[10px] sm:text-xs leading-tight">{item}</div>
+                  <div className={`leading-tight ${compact ? 'text-[8px] sm:text-[9px] line-clamp-3' : 'text-[10px] sm:text-xs'}`}>
+                    {item}
+                  </div>
                 </>
               )}
               {isEditable && (

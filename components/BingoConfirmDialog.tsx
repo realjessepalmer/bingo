@@ -32,8 +32,8 @@ export default function BingoConfirmDialog({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-start justify-center z-50 p-4 pt-8 sm:pt-16">
-      <div className="bg-white rounded-lg shadow-xl max-w-xs w-full p-4 sm:p-6 relative border-2 border-green-500">
+    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-xs px-4 pointer-events-none">
+      <div className="bg-white rounded-lg shadow-2xl p-4 sm:p-6 relative border-2 border-green-500 pointer-events-auto">
         <div className="text-center mb-3">
           <div className="text-4xl sm:text-5xl mb-1">🎉</div>
           <h2 className="text-xl sm:text-2xl font-bold text-green-600 mb-1">BINGO!</h2>
@@ -41,8 +41,11 @@ export default function BingoConfirmDialog({
             Completed: <strong>{lineName}</strong>
           </p>
         </div>
-        <p className="text-xs sm:text-sm text-gray-600 mb-4 text-center">
+        <p className="text-xs sm:text-sm text-gray-600 mb-2 text-center">
           Review your card below, then confirm.
+        </p>
+        <p className="text-xs text-red-600 mb-4 text-center font-semibold">
+          ⚠️ Bingos are not reversible once confirmed
         </p>
         <div className="flex gap-2 sm:gap-3">
           <button

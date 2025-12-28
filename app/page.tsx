@@ -374,14 +374,19 @@ export default function Home() {
     const interval = setInterval(() => {
       if (viewMode === 'view-all') {
         fetchAllCardsData();
-      } else if (selectedTheatre) {
+      } else if (selectedTheatre && sessionId) {
         fetchCardData(selectedTheatre).then((data) => {
           if (data) {
             setCardsData((prev) => ({ ...prev, [selectedTheatre]: data }));
-            if (data.isLocked && data.lockRemainingMs !== undefined) {
+            // Check if we still have the lock (lockSessionId matches our session)
+            const hasLock = data.lockSessionId === sessionId && data.lockRemainingMs !== undefined && data.lockRemainingMs > 0;
+            if (hasLock) {
               setLockRemainingMs(data.lockRemainingMs);
-            } else {
-              // Lock expired, return to view-all
+            } else if (data.lockSessionId && data.lockSessionId !== sessionId) {
+              // Locked by someone else, return to view-all
+              handleLockExpire();
+            } else if (!data.lockSessionId || (data.lockRemainingMs !== undefined && data.lockRemainingMs <= 0)) {
+              // Lock expired or released, return to view-all
               handleLockExpire();
             }
           }
@@ -391,7 +396,7 @@ export default function Home() {
     }, 2000); // Poll every 2 seconds
 
     return () => clearInterval(interval);
-  }, [viewMode, selectedTheatre, fetchAllCardsData, fetchCardData, fetchLeaderboard, handleLockExpire]);
+  }, [viewMode, selectedTheatre, sessionId, fetchAllCardsData, fetchCardData, fetchLeaderboard, handleLockExpire]);
 
   // Refresh lock on interaction
   useEffect(() => {
@@ -415,8 +420,8 @@ export default function Home() {
       <main className="container mx-auto p-4">
         {viewMode === 'view-all' ? (
           <div className="space-y-6">
-            <Leaderboard data={leaderboardData} />
             <ViewAllGrid cardsData={cardsData} onCardClick={handleCardClick} currentSessionId={sessionId} />
+            <Leaderboard data={leaderboardData} />
           </div>
         ) : (
           <div className="space-y-4">
@@ -425,7 +430,7 @@ export default function Home() {
                 onClick={handleBackToViewAll}
                 className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
               >
-                ← Back to View All
+                ← View All
               </button>
               {selectedTheatre && (
                 <div>

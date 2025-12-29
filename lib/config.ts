@@ -31,9 +31,9 @@ export const BINGO_ITEMS = [
   'FREE - I\'m editable!', // Center square (index 12)
   'CPL is simply "dcp_output" or something similar',
   'KDM closes before film ends',
-  'TBD',
-  'TBD',
-  'TBD',
+  'Started wrong movie',
+  'Hot tub broken',
+  'Filmmaker says they\'re bringing the DCP with them',
   'TBD',
   'TBD',
   'TBD',

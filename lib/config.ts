@@ -34,12 +34,12 @@ export const BINGO_ITEMS = [
   'Started wrong movie',
   'Hot tub broken',
   'Filmmaker says they\'re bringing the DCP with them',
-  'TBD',
-  'TBD',
-  'TBD',
-  'TBD',
-  'TBD',
-  'TBD',
+  'Last minute KDM with no chance of testing film',
+  'Interesting aspect ratio choices',
+  'Filmmaker asks for color correction',
+  'Red tail light',
+  'Talent complains about spotlight being too bright',
+  'Audience complains about volume being too loud after filmmaker tech check',
   'Filmmaker barges in to booth uninvited',
 ];
 

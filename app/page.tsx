@@ -435,7 +435,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-100">
       <header className="bg-white shadow-md p-4">
-        <h1 className="text-2xl sm:text-3xl font-bold text-center">Film Festival Bingo</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-center">Booth Bingo</h1>
       </header>
 
       <main className="container mx-auto p-2 sm:p-4">
@@ -543,6 +543,20 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      <footer className="bg-white border-t border-gray-200 py-4 mt-8">
+        <div className="container mx-auto px-4 text-center text-sm text-gray-600">
+          Vibe coded by{' '}
+          <a
+            href="https://loveandscience.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-800 underline"
+          >
+            Jesse Palmer
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }

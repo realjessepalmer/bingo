@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Film Festival Bingo",
+  title: "Booth Bingo",
   description: "Bingo app for film festival projectionists",
 };
 

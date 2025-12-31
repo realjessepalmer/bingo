@@ -100,9 +100,9 @@ export default function BingoCard({
               className={`
                 relative aspect-square border-2 rounded
                 flex flex-col text-center overflow-hidden
-                min-h-[50px] sm:min-h-[60px]
+                min-h-[60px] sm:min-h-[60px]
                 transition-all
-                ${compact ? 'p-1 sm:p-1.5 text-[10px] sm:text-[11px]' : 'p-2 sm:p-2 text-base sm:text-base'}
+                ${compact ? 'p-1 sm:p-1.5 text-[10px] sm:text-[11px]' : 'p-1.5 sm:p-2 text-sm sm:text-base'}
                 ${marked || isCenter ? 'bg-green-200 border-green-500' : 'bg-gray-50 border-gray-300'}
                 ${locked ? 'opacity-75' : ''}
                 ${canEdit ? 'cursor-pointer hover:bg-gray-100 active:bg-gray-200' : 'cursor-default'}
@@ -156,8 +156,8 @@ export default function BingoCard({
                       </div>
                     </div>
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center pr-6 pb-5 overflow-hidden leading-relaxed px-1" style={{ wordWrap: 'break-word', overflowWrap: 'anywhere' }}>
-                      <span className="break-words text-center text-xs sm:text-base">{item}</span>
+                    <div className="w-full h-full flex items-center justify-center pr-6 pb-5 overflow-hidden leading-tight px-1 py-0.5" style={{ wordWrap: 'break-word', overflowWrap: 'anywhere', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span className="break-words text-center text-xs sm:text-base line-clamp-none">{item}</span>
                     </div>
                   )}
                 </>

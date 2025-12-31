@@ -97,7 +97,7 @@ export default function BingoCard({
               key={index}
               className={`
                 relative aspect-square border-2 rounded
-                flex flex-col items-center justify-start text-left
+                flex flex-col text-left
                 min-h-[50px] sm:min-h-[60px]
                 transition-all
                 ${compact ? 'p-1 sm:p-1.5 text-[10px] sm:text-[11px]' : 'p-1.5 sm:p-2 text-sm sm:text-base'}
@@ -143,7 +143,7 @@ export default function BingoCard({
                 </div>
               ) : (
                 <>
-                  <div className={`w-full ${compact ? 'leading-tight line-clamp-3' : 'leading-snug'}`}>
+                  <div className={`w-full h-full flex items-center pr-6 pb-5 ${compact ? 'leading-tight line-clamp-3' : 'leading-snug'}`}>
                     {item}
                   </div>
                 </>
@@ -152,7 +152,7 @@ export default function BingoCard({
                 <>
                   {hasCommentIcon ? (
                     <div 
-                      className="absolute top-0 right-0 text-base sm:text-lg cursor-pointer hover:scale-110 transition-transform bg-blue-100 border-2 border-blue-500 rounded-full p-0.5" 
+                      className="absolute top-1 right-1 text-base sm:text-lg cursor-pointer hover:scale-110 transition-transform bg-blue-100 border-2 border-blue-500 rounded-full p-0.5 z-10" 
                       title="Has comment - click to edit"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -163,7 +163,7 @@ export default function BingoCard({
                     </div>
                   ) : (
                     <div 
-                      className="absolute top-0 right-0 text-base sm:text-lg opacity-50 cursor-pointer hover:opacity-100 hover:scale-110 transition-all" 
+                      className="absolute top-1 right-1 text-base sm:text-lg opacity-50 cursor-pointer hover:opacity-100 hover:scale-110 transition-all z-10" 
                       title="Click to add comment"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -174,7 +174,7 @@ export default function BingoCard({
                     </div>
                   )}
                   {locked && (
-                    <div className="absolute bottom-0 left-0 text-base sm:text-lg" title="Locked (part of confirmed bingo)">
+                    <div className="absolute bottom-1 left-1 text-base sm:text-lg z-10" title="Locked (part of confirmed bingo)">
                       🔒
                     </div>
                   )}

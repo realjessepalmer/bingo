@@ -8,7 +8,7 @@ interface LeaderboardData {
     markedCount: number;
   }>;
   firstBingoOverall: string | null;
-  mostBingos: string[];
+  mostBingos: string[] | null;
   leastBingos: string[] | null;
 }
 
@@ -38,12 +38,14 @@ export default function Leaderboard({ data }: LeaderboardProps) {
           </div>
         </div>
         
-        <div className="bg-blue-50 border-2 border-blue-400 rounded-lg p-3">
-          <div className="text-sm font-semibold text-blue-800">🥇 Highest Score</div>
-          <div className="text-lg font-bold text-blue-900">
-            {data.mostBingos.join(', ')}
+        {data.mostBingos && (
+          <div className="bg-blue-50 border-2 border-blue-400 rounded-lg p-3">
+            <div className="text-sm font-semibold text-blue-800">🥇 Highest Score</div>
+            <div className="text-lg font-bold text-blue-900">
+              {data.mostBingos.join(', ')}
+            </div>
           </div>
-        </div>
+        )}
         
         {data.leastBingos && (
           <div className="bg-purple-50 border-2 border-purple-400 rounded-lg p-3">

@@ -35,14 +35,18 @@ export async function GET() {
     });
 
     // Highest Score = all theatres tied for first place (same bingo count and marked count)
-    const topScore = rankedLeaderboard[0];
-    const highestScore = rankedLeaderboard.filter(
-      entry => entry.bingoCount === topScore.bingoCount && entry.markedCount === topScore.markedCount
-    ).map(entry => entry.theatre);
+    // Only calculate if there's at least one bingo somewhere (makes sense to rank)
+    const hasAnyBingos = rankedLeaderboard.some(entry => entry.bingoCount > 0);
+    let highestScore: string[] | null = null;
+    if (hasAnyBingos) {
+      const topScore = rankedLeaderboard[0];
+      highestScore = rankedLeaderboard.filter(
+        entry => entry.bingoCount === topScore.bingoCount && entry.markedCount === topScore.markedCount
+      ).map(entry => entry.theatre);
+    }
 
     // Least Issues = all theatres tied for last place (least bingos, or least marks if tied on bingos)
     // Only calculate if there's at least one bingo somewhere (makes sense to rank)
-    const hasAnyBingos = rankedLeaderboard.some(entry => entry.bingoCount > 0);
     let leastIssues: string[] | null = null;
     if (hasAnyBingos) {
       const bottomScore = rankedLeaderboard[rankedLeaderboard.length - 1];

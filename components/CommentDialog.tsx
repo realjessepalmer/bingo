@@ -58,7 +58,7 @@ export default function CommentDialog({
           ref={textareaRef}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Add gossip about how this was achieved..."
+          placeholder="OK, tell us what happened..."
           maxLength={200}
           className="w-full h-32 p-3 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
         />

@@ -96,7 +96,7 @@ export default function BingoCard({
               key={index}
               className={`
                 relative aspect-square border-2 rounded
-                flex flex-col items-center justify-center text-center
+                flex flex-col items-start justify-start text-left
                 min-h-[50px] sm:min-h-[70px]
                 transition-all
                 ${compact ? 'p-1 sm:p-1.5 text-[10px] sm:text-[11px]' : 'p-1.5 sm:p-2 text-sm sm:text-base'}
@@ -142,7 +142,7 @@ export default function BingoCard({
                 </div>
               ) : (
                 <>
-                  <div className={`${compact ? 'leading-tight line-clamp-3' : 'leading-normal'}`}>
+                  <div className={`w-full ${compact ? 'leading-tight line-clamp-3' : 'leading-normal'}`}>
                     {item}
                   </div>
                 </>
@@ -151,7 +151,7 @@ export default function BingoCard({
                 <>
                   {hasCommentIcon ? (
                     <div 
-                      className="absolute top-0 right-0 text-base sm:text-lg cursor-pointer hover:scale-110 transition-transform" 
+                      className="absolute top-0 right-0 text-base sm:text-lg cursor-pointer hover:scale-110 transition-transform bg-blue-100 border-2 border-blue-500 rounded-full p-0.5" 
                       title="Has comment - click to edit"
                       onClick={(e) => {
                         e.stopPropagation();

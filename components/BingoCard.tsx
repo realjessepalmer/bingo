@@ -143,9 +143,17 @@ export default function BingoCard({
                 </div>
               ) : (
                 <>
-                  <div className={`w-full h-full flex items-center pr-6 pb-5 overflow-hidden ${compact ? 'leading-tight line-clamp-3' : 'leading-snug'}`} style={{ wordWrap: 'break-word', overflowWrap: 'anywhere' }}>
-                    <span className="break-words">{item}</span>
-                  </div>
+                  {compact ? (
+                    <div className="w-full h-full flex items-center px-1">
+                      <div className="w-full overflow-hidden leading-tight line-clamp-3 break-words" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>
+                        {item}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="w-full h-full flex items-center pr-6 pb-5 overflow-hidden leading-snug" style={{ wordWrap: 'break-word', overflowWrap: 'anywhere' }}>
+                      <span className="break-words">{item}</span>
+                    </div>
+                  )}
                 </>
               )}
               {isEditable && (

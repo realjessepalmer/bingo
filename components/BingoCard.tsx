@@ -156,7 +156,7 @@ export default function BingoCard({
                       </div>
                     </div>
                   ) : (
-                    <div className={`w-full h-full flex items-center justify-center ${isEditable ? 'px-8 py-3' : 'px-2 py-2'}`} style={{ wordWrap: 'break-word', overflowWrap: 'anywhere' }}>
+                    <div className={`w-full h-full flex items-center justify-center ${isEditable ? 'px-4 py-2' : 'px-2 py-2'}`} style={{ wordWrap: 'break-word', overflowWrap: 'anywhere' }}>
                       <span className="break-words text-center text-xs sm:text-base leading-tight">{item}</span>
                     </div>
                   )}

@@ -50,7 +50,7 @@ export default function ViewAllGrid({ cardsData, onCardClick, currentSessionId }
                 }}
               >
                 <div className="mb-2 text-center">
-                  <h3 className="font-bold text-lg">{theatre}</h3>
+                  <h3 className="font-bold text-lg">{theatre}{theatre === 'Festival' ? ' 🌭' : ''}</h3>
                   {isLockedByOther && (
                     <span className="text-xs text-red-600">🔒 Locked (being edited)</span>
                   )}
@@ -101,7 +101,7 @@ export default function ViewAllGrid({ cardsData, onCardClick, currentSessionId }
               }}
             >
               <div className="mb-2 text-center">
-                <h3 className="font-bold text-lg">{theatre}</h3>
+                <h3 className="font-bold text-lg">{theatre}{theatre === 'Festival' ? ' 🌭' : ''}</h3>
                 {isLockedByOther && (
                   <span className="text-xs text-red-600">🔒 Locked (being edited)</span>
                 )}

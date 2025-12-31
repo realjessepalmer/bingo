@@ -463,7 +463,7 @@ export default function Home() {
               </button>
               {selectedTheatre && (
                 <div>
-                  <h2 className="text-xl font-bold">{selectedTheatre}</h2>
+                  <h2 className="text-xl font-bold">{selectedTheatre}{selectedTheatre === 'Festival' ? ' 🌭' : ''}</h2>
                 </div>
               )}
               {lockRemainingMs > 0 && (

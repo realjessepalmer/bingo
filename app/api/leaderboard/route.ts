@@ -34,19 +34,28 @@ export async function GET() {
       return b.markedCount - a.markedCount;
     });
 
-    // Highest Score = first place (most bingos, or most marks if tied)
-    const highestScore = rankedLeaderboard[0];
+    // Highest Score = all theatres tied for first place (same bingo count and marked count)
+    const topScore = rankedLeaderboard[0];
+    const highestScore = rankedLeaderboard.filter(
+      entry => entry.bingoCount === topScore.bingoCount && entry.markedCount === topScore.markedCount
+    ).map(entry => entry.theatre);
 
-    // Least Issues = last place (least bingos, or least marks if tied on bingos)
+    // Least Issues = all theatres tied for last place (least bingos, or least marks if tied on bingos)
     // Only calculate if there's at least one bingo somewhere (makes sense to rank)
     const hasAnyBingos = rankedLeaderboard.some(entry => entry.bingoCount > 0);
-    const leastIssues = hasAnyBingos ? rankedLeaderboard[rankedLeaderboard.length - 1] : null;
+    let leastIssues: string[] | null = null;
+    if (hasAnyBingos) {
+      const bottomScore = rankedLeaderboard[rankedLeaderboard.length - 1];
+      leastIssues = rankedLeaderboard.filter(
+        entry => entry.bingoCount === bottomScore.bingoCount && entry.markedCount === bottomScore.markedCount
+      ).map(entry => entry.theatre);
+    }
 
     return NextResponse.json({
       leaderboard: rankedLeaderboard,
       firstBingoOverall: firstBingoOverall?.theatre || null,
-      mostBingos: highestScore.theatre,
-      leastBingos: leastIssues?.theatre || null,
+      mostBingos: highestScore,
+      leastBingos: leastIssues,
     });
   } catch (error) {
     console.error('Error getting leaderboard:', error);

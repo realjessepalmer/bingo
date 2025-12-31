@@ -30,8 +30,8 @@ interface LeaderboardData {
     markedCount: number;
   }>;
   firstBingoOverall: string | null;
-  mostBingos: string;
-  leastBingos: string;
+  mostBingos: string[];
+  leastBingos: string[] | null;
 }
 
 export default function Home() {

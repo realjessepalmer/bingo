@@ -7,7 +7,7 @@ export const THEATRES = [
   'ARCO',
   'Festival',
   'D\'Place',
-  'Camelot',
+  'Cultural Center',
   'High School',
 ];
 
@@ -34,7 +34,7 @@ export const BINGO_ITEMS = [
   'Started wrong movie',
   'Hot tub broken',
   'Filmmaker says they\'re bringing the DCP with them',
-  'Last minute KDM with no chance of testing film',
+  'Last minute KDM/print with no chance of testing film',
   'Interesting aspect ratio choices',
   'Filmmaker asks for color correction',
   'Red tail light',

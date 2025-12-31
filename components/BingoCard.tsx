@@ -95,11 +95,11 @@ export default function BingoCard({
             <div
               key={index}
               className={`
-                relative aspect-square border-2 rounded p-1
+                relative aspect-square border-2 rounded
                 flex flex-col items-center justify-center text-center
-                min-h-[44px] sm:min-h-[60px]
+                min-h-[50px] sm:min-h-[70px]
                 transition-all
-                ${compact ? 'text-[8px] sm:text-[9px]' : 'text-xs sm:text-sm'}
+                ${compact ? 'p-1 sm:p-1.5 text-[10px] sm:text-[11px]' : 'p-1.5 sm:p-2 text-sm sm:text-base'}
                 ${marked || isCenter ? 'bg-green-200 border-green-500' : 'bg-gray-50 border-gray-300'}
                 ${locked ? 'opacity-75' : ''}
                 ${canEdit ? 'cursor-pointer hover:bg-gray-100 active:bg-gray-200' : 'cursor-default'}
@@ -136,13 +136,13 @@ export default function BingoCard({
                       e.stopPropagation();
                       if (onEditMiddleSquare) onEditMiddleSquare();
                     }}
-                    className="w-full h-full text-center bg-transparent border-none outline-none font-bold text-xs sm:text-sm"
+                    className="w-full h-full text-center bg-transparent border-none outline-none font-bold text-sm sm:text-base"
                     placeholder="FREE"
                   />
                 </div>
               ) : (
                 <>
-                  <div className={`leading-tight ${compact ? 'text-[8px] sm:text-[9px] line-clamp-3' : 'text-[10px] sm:text-xs'}`}>
+                  <div className={`${compact ? 'leading-tight line-clamp-3' : 'leading-normal'}`}>
                     {item}
                   </div>
                 </>

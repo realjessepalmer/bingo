@@ -83,7 +83,7 @@ export default function BingoCard({
 
   return (
     <div className={`bingo-card ${isLocked ? 'opacity-50' : ''} ${!isEditable ? 'pointer-events-none' : ''}`}>
-      <div className="grid grid-cols-5 gap-1 p-2 bg-white rounded-lg shadow-md">
+      <div className="grid grid-cols-5 gap-1.5 sm:gap-1 p-1.5 sm:p-2 bg-white rounded-lg shadow-md">
         {BINGO_ITEMS.map((item, index) => {
           const isCenter = index === CENTER_SQUARE_INDEX;
           const marked = isMarked(index);
@@ -97,9 +97,9 @@ export default function BingoCard({
               className={`
                 relative aspect-square border-2 rounded
                 flex flex-col items-start justify-start text-left
-                min-h-[50px] sm:min-h-[70px]
+                min-h-[65px] sm:min-h-[70px]
                 transition-all
-                ${compact ? 'p-1 sm:p-1.5 text-[10px] sm:text-[11px]' : 'p-1.5 sm:p-2 text-sm sm:text-base'}
+                ${compact ? 'p-1 sm:p-1.5 text-[10px] sm:text-[11px]' : 'p-2 sm:p-2.5 text-sm sm:text-base'}
                 ${marked || isCenter ? 'bg-green-200 border-green-500' : 'bg-gray-50 border-gray-300'}
                 ${locked ? 'opacity-75' : ''}
                 ${canEdit ? 'cursor-pointer hover:bg-gray-100 active:bg-gray-200' : 'cursor-default'}
@@ -136,13 +136,13 @@ export default function BingoCard({
                       e.stopPropagation();
                       if (onEditMiddleSquare) onEditMiddleSquare();
                     }}
-                    className="w-full h-full text-center bg-transparent border-none outline-none font-bold text-sm sm:text-base"
+                    className="w-full h-full text-center bg-transparent border-none outline-none font-bold text-base sm:text-base"
                     placeholder="FREE"
                   />
                 </div>
               ) : (
                 <>
-                  <div className={`w-full ${compact ? 'leading-tight line-clamp-3' : 'leading-normal'}`}>
+                  <div className={`w-full ${compact ? 'leading-tight line-clamp-3' : 'leading-snug'}`}>
                     {item}
                   </div>
                 </>

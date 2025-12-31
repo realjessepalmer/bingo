@@ -438,7 +438,7 @@ export default function Home() {
         <h1 className="text-2xl sm:text-3xl font-bold text-center">Film Festival Bingo</h1>
       </header>
 
-      <main className="container mx-auto p-4">
+      <main className="container mx-auto p-2 sm:p-4">
         {viewMode === 'view-all' ? (
           <div className="space-y-6">
             <div className="flex justify-center">

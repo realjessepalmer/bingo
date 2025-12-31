@@ -143,8 +143,8 @@ export default function BingoCard({
                 </div>
               ) : (
                 <>
-                  <div className={`w-full h-full flex items-center pr-6 pb-5 break-words overflow-hidden ${compact ? 'leading-tight line-clamp-3' : 'leading-snug'}`}>
-                    {item}
+                  <div className={`w-full h-full flex items-center pr-6 pb-5 overflow-hidden ${compact ? 'leading-tight line-clamp-3' : 'leading-snug'}`} style={{ wordWrap: 'break-word', overflowWrap: 'anywhere' }}>
+                    <span className="break-words">{item}</span>
                   </div>
                 </>
               )}

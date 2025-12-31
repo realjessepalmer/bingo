@@ -24,24 +24,27 @@ export async function GET() {
       .filter((l) => l.firstBingo)
       .sort((a, b) => (a.firstBingo || '').localeCompare(b.firstBingo || ''))[0];
 
-    // Find most bingos
-    const mostBingos = leaderboard.reduce((max, current) => 
-      current.bingoCount > max.bingoCount ? current : max,
-      leaderboard[0]
-    );
+    // Sort by Mario Party-style ranking: bingos (stars) first, then marks (coins) as tiebreaker
+    const rankedLeaderboard = [...leaderboard].sort((a, b) => {
+      // Primary: bingo count (descending)
+      if (b.bingoCount !== a.bingoCount) {
+        return b.bingoCount - a.bingoCount;
+      }
+      // Tiebreaker: marked count (descending)
+      return b.markedCount - a.markedCount;
+    });
 
-    // Find least bingos (or most items marked without bingo)
-    const leastBingos = leaderboard.reduce((min, current) => {
-      if (current.bingoCount < min.bingoCount) return current;
-      if (current.bingoCount === min.bingoCount && current.markedCount > min.markedCount) return current;
-      return min;
-    }, leaderboard[0]);
+    // Highest Score = first place (most bingos, or most marks if tied)
+    const highestScore = rankedLeaderboard[0];
+
+    // Least Issues = last place (least bingos, or least marks if tied on bingos)
+    const leastIssues = rankedLeaderboard[rankedLeaderboard.length - 1];
 
     return NextResponse.json({
-      leaderboard,
+      leaderboard: rankedLeaderboard,
       firstBingoOverall: firstBingoOverall?.theatre || null,
-      mostBingos: mostBingos.theatre,
-      leastBingos: leastBingos.theatre,
+      mostBingos: highestScore.theatre,
+      leastBingos: leastIssues.theatre,
     });
   } catch (error) {
     console.error('Error getting leaderboard:', error);

@@ -45,6 +45,36 @@ export const BINGO_ITEMS = [
 
 export const CENTER_SQUARE_INDEX = 12;
 
+// Unique emojis for each bingo cell (25 total, one per cell)
+// Used in view-all mode to replace text and eliminate overflow issues
+export const BINGO_EMOJIS = [
+  '🎬', // 0: Filmmaker insists on playing at Dolby 7.0
+  '🎤', // 1: House manager wants mic volume up
+  '📽️', // 2: CPL says F when it's clearly different ratio
+  '📺', // 3: Subtitles in letterbox bar
+  '🔑', // 4: KDM issued for wrong window
+  '❌', // 5: Filmmaker no-shows tech check
+  '💥', // 6: Projector crashes during film
+  '💾', // 7: DCP won't ingest or play
+  '👤', // 8: Talent can't be found
+  '🤒', // 9: Projectionist gets sick
+  '🚫', // 10: Someone on floor staff needed to be removed
+  '🔊', // 11: Filmmaker wants volume change
+  '✅', // 12: FREE - Center square
+  '📝', // 13: CPL is simply "dcp_output"
+  '⏰', // 14: KDM closes before film ends
+  '🎞️', // 15: Started wrong movie
+  '🛁', // 16: Hot tub broken
+  '📦', // 17: Filmmaker says they're bringing the DCP
+  '⚡', // 18: Last minute KDM/print
+  '📐', // 19: Interesting aspect ratio choices
+  '🎨', // 20: Filmmaker asks for color correction
+  '🔴', // 21: Red tail light
+  '💡', // 22: Talent complains about spotlight
+  '📢', // 23: Audience complains about volume
+  '🚪', // 24: Filmmaker barges in to booth
+];
+
 // Bingo line types
 export type BingoLineType = 'row' | 'col' | 'diag';
 

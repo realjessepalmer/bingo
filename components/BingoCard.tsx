@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { BINGO_ITEMS, CENTER_SQUARE_INDEX } from '@/lib/config';
+import { BINGO_ITEMS, CENTER_SQUARE_INDEX, BINGO_EMOJIS } from '@/lib/config';
 import { detectBingos, isItemLocked, getBingoLineName, BingoLine } from '@/lib/bingo';
 
 interface BingoCardProps {
@@ -144,10 +144,8 @@ export default function BingoCard({
               ) : (
                 <>
                   {compact ? (
-                    <div className="w-full h-full flex items-center px-1">
-                      <div className="w-full overflow-hidden leading-tight line-clamp-3 break-words" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>
-                        {item}
-                      </div>
+                    <div className="w-full h-full flex items-center justify-center text-2xl sm:text-3xl">
+                      {BINGO_EMOJIS[index]}
                     </div>
                   ) : (
                     <div className="w-full h-full flex items-center pr-6 pb-5 overflow-hidden leading-snug" style={{ wordWrap: 'break-word', overflowWrap: 'anywhere' }}>

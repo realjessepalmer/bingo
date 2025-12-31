@@ -97,7 +97,7 @@ export default function BingoCard({
               key={index}
               className={`
                 relative aspect-square border-2 rounded
-                flex flex-col text-left overflow-hidden
+                flex flex-col text-center overflow-hidden
                 min-h-[50px] sm:min-h-[60px]
                 transition-all
                 ${compact ? 'p-1 sm:p-1.5 text-[10px] sm:text-[11px]' : 'p-1.5 sm:p-2 text-sm sm:text-base'}
@@ -144,14 +144,14 @@ export default function BingoCard({
               ) : (
                 <>
                   {compact ? (
-                    <div className="w-full h-full flex items-center px-1">
-                      <div className="w-full overflow-hidden leading-tight line-clamp-3 break-words" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>
+                    <div className="w-full h-full flex items-center justify-center px-1">
+                      <div className="w-full overflow-hidden leading-tight line-clamp-3 break-words text-center" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>
                         {item}
                       </div>
                     </div>
                   ) : (
-                    <div className="w-full h-full flex items-center pr-6 pb-5 overflow-hidden leading-snug" style={{ wordWrap: 'break-word', overflowWrap: 'anywhere' }}>
-                      <span className="break-words">{item}</span>
+                    <div className="w-full h-full flex items-center justify-center pr-6 pb-5 overflow-hidden leading-snug" style={{ wordWrap: 'break-word', overflowWrap: 'anywhere' }}>
+                      <span className="break-words text-center">{item}</span>
                     </div>
                   )}
                 </>

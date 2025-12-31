@@ -38,13 +38,15 @@ export async function GET() {
     const highestScore = rankedLeaderboard[0];
 
     // Least Issues = last place (least bingos, or least marks if tied on bingos)
-    const leastIssues = rankedLeaderboard[rankedLeaderboard.length - 1];
+    // Only calculate if there's at least one bingo somewhere (makes sense to rank)
+    const hasAnyBingos = rankedLeaderboard.some(entry => entry.bingoCount > 0);
+    const leastIssues = hasAnyBingos ? rankedLeaderboard[rankedLeaderboard.length - 1] : null;
 
     return NextResponse.json({
       leaderboard: rankedLeaderboard,
       firstBingoOverall: firstBingoOverall?.theatre || null,
       mostBingos: highestScore.theatre,
-      leastBingos: leastIssues.theatre,
+      leastBingos: leastIssues?.theatre || null,
     });
   } catch (error) {
     console.error('Error getting leaderboard:', error);

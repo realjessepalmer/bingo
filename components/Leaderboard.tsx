@@ -43,10 +43,12 @@ export default function Leaderboard({ data }: LeaderboardProps) {
           <div className="text-lg font-bold text-blue-900">{data.mostBingos}</div>
         </div>
         
-        <div className="bg-purple-50 border-2 border-purple-400 rounded-lg p-3">
-          <div className="text-sm font-semibold text-purple-800">📊 Least Issues</div>
-          <div className="text-lg font-bold text-purple-900">{data.leastBingos}</div>
-        </div>
+        {data.leastBingos && (
+          <div className="bg-purple-50 border-2 border-purple-400 rounded-lg p-3">
+            <div className="text-sm font-semibold text-purple-800">📊 Least Issues</div>
+            <div className="text-lg font-bold text-purple-900">{data.leastBingos}</div>
+          </div>
+        )}
       </div>
 
       <div className="border-t pt-4">

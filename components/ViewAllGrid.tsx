@@ -64,6 +64,7 @@ export default function ViewAllGrid({ cardsData, onCardClick, currentSessionId }
                   isLocked={isLockedByOther}
                   isEditable={false}
                   compact={true}
+                  numbersOnly={true}
                 />
                 {isLockedByOther && data.lockRemainingMs !== undefined && data.lockRemainingMs > 0 && (
                   <LockCountdownSmall remainingMs={data.lockRemainingMs} />

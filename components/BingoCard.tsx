@@ -13,6 +13,7 @@ interface BingoCardProps {
   isLocked: boolean;
   isEditable: boolean;
   compact?: boolean; // For view-all mode
+  numbersOnly?: boolean; // Show numbers instead of text (for mobile view-all)
   onMarkItem?: (itemIndex: number) => void;
   onEditComment?: (cellIndex: number) => void;
   onEditMiddleSquare?: () => void;
@@ -28,6 +29,7 @@ export default function BingoCard({
   isLocked,
   isEditable,
   compact = false,
+  numbersOnly = false,
   onMarkItem,
   onEditComment,
   onEditMiddleSquare,
@@ -83,8 +85,8 @@ export default function BingoCard({
 
   return (
     <div className={`bingo-card ${isLocked ? 'opacity-50' : ''} ${!isEditable ? 'pointer-events-none' : ''}`}>
-      <div className="overflow-x-auto -mx-2 sm:mx-0">
-        <div className="grid grid-cols-5 gap-1.5 sm:gap-1 p-1.5 sm:p-2 bg-white rounded-lg shadow-md min-w-[600px] sm:min-w-0">
+      <div className={numbersOnly ? '' : 'overflow-x-auto -mx-2 sm:mx-0'}>
+        <div className={`grid grid-cols-5 gap-1.5 sm:gap-1 p-1.5 sm:p-2 bg-white rounded-lg shadow-md ${numbersOnly ? '' : 'min-w-[600px] sm:min-w-0'}`}>
         {BINGO_ITEMS.map((item, index) => {
           const isCenter = index === CENTER_SQUARE_INDEX;
           const marked = isMarked(index);
@@ -143,7 +145,11 @@ export default function BingoCard({
                 </div>
               ) : (
                 <>
-                  {compact ? (
+                  {numbersOnly ? (
+                    <div className="w-full h-full flex items-center justify-center text-lg font-bold">
+                      {index + 1}
+                    </div>
+                  ) : compact ? (
                     <div className="w-full h-full flex items-center justify-center px-1">
                       <div className="w-full overflow-hidden leading-tight line-clamp-3 break-words text-center" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>
                         {item}

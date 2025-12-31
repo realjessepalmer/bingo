@@ -86,7 +86,7 @@ export default function BingoCard({
   return (
     <div className={`bingo-card ${isLocked ? 'opacity-50' : ''} ${!isEditable ? 'pointer-events-none' : ''}`}>
       <div className={numbersOnly ? '' : 'overflow-x-auto -mx-2 sm:mx-0'}>
-        <div className={`grid grid-cols-5 gap-1.5 sm:gap-1 p-1.5 sm:p-2 bg-white rounded-lg shadow-md ${numbersOnly ? '' : 'min-w-[600px] sm:min-w-0'}`}>
+        <div className={`grid grid-cols-5 gap-1.5 sm:gap-1 p-1.5 sm:p-2 bg-white rounded-lg shadow-md ${numbersOnly ? '' : 'min-w-[750px] sm:min-w-0'}`}>
         {BINGO_ITEMS.map((item, index) => {
           const isCenter = index === CENTER_SQUARE_INDEX;
           const marked = isMarked(index);

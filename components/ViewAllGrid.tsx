@@ -24,10 +24,12 @@ interface ViewAllGridProps {
 export default function ViewAllGrid({ cardsData, onCardClick, currentSessionId }: ViewAllGridProps) {
   return (
     <>
-      {/* Mobile: Horizontal scrolling */}
-      <div className="overflow-x-auto -mx-2 sm:hidden">
-        <div className="flex gap-4 px-4 py-4 min-w-max">
-          {THEATRES.map((theatre) => {
+      {/* Mobile: Stacked vertical layout */}
+      <div className="sm:hidden space-y-6 px-4">
+        <p className="text-sm text-gray-600 text-center mb-2">
+          Click theatre to read and edit card
+        </p>
+        {THEATRES.map((theatre) => {
             const data = cardsData[theatre] || {
               markedItems: [],
               comments: {},
@@ -72,7 +74,6 @@ export default function ViewAllGrid({ cardsData, onCardClick, currentSessionId }
               </div>
             );
           })}
-        </div>
       </div>
       {/* Desktop: Grid layout */}
       <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-4 p-4">

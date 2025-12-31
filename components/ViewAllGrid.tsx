@@ -26,7 +26,7 @@ export default function ViewAllGrid({ cardsData, onCardClick, currentSessionId }
     <>
       {/* Mobile: Horizontal scrolling */}
       <div className="overflow-x-auto -mx-2 sm:hidden">
-        <div className="flex gap-4 p-4 min-w-max">
+        <div className="flex gap-4 px-4 py-4 min-w-max">
           {THEATRES.map((theatre) => {
             const data = cardsData[theatre] || {
               markedItems: [],
@@ -40,7 +40,7 @@ export default function ViewAllGrid({ cardsData, onCardClick, currentSessionId }
               <div
                 key={theatre}
                 className={`
-                  relative transition-all flex-shrink-0 w-[calc(100vw-2rem)]
+                  relative transition-all flex-shrink-0 w-[calc(100vw-3rem)]
                   ${isLockedByOther ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:scale-105'}
                 `}
                 onClick={() => {

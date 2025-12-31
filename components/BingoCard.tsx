@@ -97,7 +97,7 @@ export default function BingoCard({
               key={index}
               className={`
                 relative aspect-square border-2 rounded
-                flex flex-col text-left
+                flex flex-col text-left overflow-hidden
                 min-h-[50px] sm:min-h-[60px]
                 transition-all
                 ${compact ? 'p-1 sm:p-1.5 text-[10px] sm:text-[11px]' : 'p-1.5 sm:p-2 text-sm sm:text-base'}
@@ -143,7 +143,7 @@ export default function BingoCard({
                 </div>
               ) : (
                 <>
-                  <div className={`w-full h-full flex items-center pr-6 pb-5 ${compact ? 'leading-tight line-clamp-3' : 'leading-snug'}`}>
+                  <div className={`w-full h-full flex items-center pr-6 pb-5 break-words overflow-hidden ${compact ? 'leading-tight line-clamp-3' : 'leading-snug'}`}>
                     {item}
                   </div>
                 </>
@@ -152,29 +152,53 @@ export default function BingoCard({
                 <>
                   {hasCommentIcon ? (
                     <div 
-                      className="absolute top-1 right-1 text-base sm:text-lg cursor-pointer hover:scale-110 transition-transform bg-blue-100 border-2 border-blue-500 rounded-full p-0.5 z-10" 
-                      title="Has comment - click to edit"
+                      className="absolute top-0.5 right-0.5 text-xs sm:text-base cursor-pointer hover:scale-110 transition-transform bg-blue-100 border border-blue-500 rounded-full p-0.5 z-10 touch-none" 
+                      title="Has comment - long press to edit"
+                      onTouchStart={(e) => {
+                        e.stopPropagation();
+                        const timer = setTimeout(() => {
+                          if (onEditComment) onEditComment(index);
+                        }, 500);
+                        const cleanup = () => clearTimeout(timer);
+                        e.currentTarget.addEventListener('touchend', cleanup, { once: true });
+                        e.currentTarget.addEventListener('touchcancel', cleanup, { once: true });
+                      }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        if (onEditComment) onEditComment(index);
+                        // Only allow click on desktop
+                        if (window.innerWidth >= 640 && onEditComment) {
+                          onEditComment(index);
+                        }
                       }}
                     >
                       💬
                     </div>
                   ) : (
                     <div 
-                      className="absolute top-1 right-1 text-base sm:text-lg opacity-50 cursor-pointer hover:opacity-100 hover:scale-110 transition-all z-10" 
-                      title="Click to add comment"
+                      className="absolute top-0.5 right-0.5 text-xs sm:text-base opacity-30 sm:opacity-50 cursor-pointer hover:opacity-100 hover:scale-110 transition-all z-10 touch-none" 
+                      title="Long press to add comment"
+                      onTouchStart={(e) => {
+                        e.stopPropagation();
+                        const timer = setTimeout(() => {
+                          if (onEditComment) onEditComment(index);
+                        }, 500);
+                        const cleanup = () => clearTimeout(timer);
+                        e.currentTarget.addEventListener('touchend', cleanup, { once: true });
+                        e.currentTarget.addEventListener('touchcancel', cleanup, { once: true });
+                      }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        if (onEditComment) onEditComment(index);
+                        // Only allow click on desktop
+                        if (window.innerWidth >= 640 && onEditComment) {
+                          onEditComment(index);
+                        }
                       }}
                     >
                       💬
                     </div>
                   )}
                   {locked && (
-                    <div className="absolute bottom-1 left-1 text-base sm:text-lg z-10" title="Locked (part of confirmed bingo)">
+                    <div className="absolute bottom-0.5 left-0.5 text-xs sm:text-base z-10 touch-none" title="Locked (part of confirmed bingo)">
                       🔒
                     </div>
                   )}

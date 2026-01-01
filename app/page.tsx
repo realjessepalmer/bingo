@@ -452,7 +452,7 @@ export default function Home() {
             🎬 Booth Bingo
           </h1>
           <p className="text-blue-100 text-center mt-1 sm:mt-2 text-xs sm:text-base">
-            Film Festival Projectionist Edition
+            PSIFF 2026 Edition
           </p>
         </div>
       </header>

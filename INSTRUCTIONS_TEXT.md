@@ -1,7 +1,5 @@
 # Booth Bingo Instructions Text
 
-## What is Booth Bingo?
-
 Booth Bingo is a way for PSIFF 2026 projectionists to track festival occurrences. When things happen that you recognize from the bingo card, mark them. Or not. It's just a dumb game.
 
 ## How to Play

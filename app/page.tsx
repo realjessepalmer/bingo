@@ -413,38 +413,8 @@ export default function Home() {
 
   const currentCardData = selectedTheatre ? cardsData[selectedTheatre] : null;
 
-  // Handle reset (for testing)
-  const handleReset = useCallback(async () => {
-    if (!confirm('Are you sure you want to reset ALL data? This cannot be undone!')) {
-      return;
-    }
-
-    try {
-      const res = await fetch('/api/reset', { method: 'POST' });
-      if (res.ok) {
-        alert('All data has been reset!');
-        // Refresh the page to reload all data
-        window.location.reload();
-      } else {
-        alert('Error resetting data');
-      }
-    } catch (error) {
-      console.error('Error resetting:', error);
-      alert('Error resetting data');
-    }
-  }, []);
-
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Development Notice Banner */}
-      <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 border-b-2 border-yellow-500 shadow-md">
-        <div className="container mx-auto px-4 py-2 sm:py-3">
-          <p className="text-center text-xs sm:text-sm font-semibold text-yellow-900">
-            🚧 This app is still actively being developed and bugs are getting fixed 🚧
-          </p>
-        </div>
-      </div>
-
       <header 
         className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 shadow-lg sticky top-0 z-40 cursor-pointer hover:from-blue-700 hover:via-blue-800 hover:to-blue-700 transition-all duration-200 relative"
         onClick={handleBackToViewAll}
@@ -472,17 +442,6 @@ export default function Home() {
       <main className="container mx-auto px-2 sm:px-4 py-4 sm:py-6 max-w-7xl">
         {viewMode === 'view-all' ? (
           <div className="space-y-6">
-            <div className="flex justify-center">
-              <button
-                onClick={handleReset}
-                className="px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg 
-                  hover:from-red-700 hover:to-red-800 active:scale-95 
-                  transition-all duration-200 font-bold text-base sm:text-lg 
-                  shadow-lg hover:shadow-xl"
-              >
-                🔴 RESET ALL DATA (Testing Only)
-              </button>
-            </div>
             <ViewAllGrid cardsData={cardsData} onCardClick={handleCardClick} currentSessionId={sessionId} />
             <Leaderboard data={leaderboardData} />
           </div>

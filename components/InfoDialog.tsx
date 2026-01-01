@@ -30,12 +30,9 @@ export default function InfoDialog({ isOpen, onClose }: InfoDialogProps) {
         
         <div className="overflow-y-auto flex-1 pr-2">
           <div className="space-y-4 text-sm sm:text-base text-gray-700">
-            <div>
-              <h3 className="font-bold text-lg mb-2 text-gray-800">What is Booth Bingo?</h3>
-              <p className="mb-2">
-                Booth Bingo is a way for PSIFF 2026 projectionists to track festival occurrences. When things happen that you recognize from the bingo card, mark them. Or not. It's just a dumb game.
-              </p>
-            </div>
+            <p className="mb-4">
+              Booth Bingo is a way for PSIFF 2026 projectionists to track festival occurrences. When things happen that you recognize from the bingo card, mark them. Or not. It's just a dumb game.
+            </p>
 
             <div>
               <h3 className="font-bold text-lg mb-2 text-gray-800">How to Play</h3>

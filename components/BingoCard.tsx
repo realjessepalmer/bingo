@@ -106,7 +106,7 @@ export default function BingoCard({
                 ${marked || isCenter 
                   ? 'bg-gradient-to-br from-green-100 to-green-200 border-green-400 shadow-md' 
                   : 'bg-white border-gray-200 hover:border-gray-300'}
-                ${locked ? 'opacity-60 grayscale' : ''}
+                ${locked ? 'opacity-75' : ''}
                 ${canEdit ? 'cursor-pointer hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]' : 'cursor-default'}
                 ${isCenter ? 'font-bold bg-gradient-to-br from-blue-100 to-blue-200 border-blue-400 shadow-md' : ''}
               `}

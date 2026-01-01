@@ -7,6 +7,7 @@ import Leaderboard from '@/components/Leaderboard';
 import LockCountdown from '@/components/LockCountdown';
 import BingoConfirmDialog from '@/components/BingoConfirmDialog';
 import CommentDialog from '@/components/CommentDialog';
+import InfoDialog from '@/components/InfoDialog';
 import { THEATRES, BINGO_ITEMS, CENTER_SQUARE_INDEX, LOCK_TIMEOUT_MS } from '@/lib/config';
 import { BingoLine } from '@/lib/bingo';
 
@@ -51,6 +52,7 @@ export default function Home() {
     isOpen: boolean;
     text: string;
   }>({ isOpen: false, text: 'FREE' });
+  const [infoDialogOpen, setInfoDialogOpen] = useState(false);
 
   // Initialize session ID
   useEffect(() => {
@@ -444,10 +446,20 @@ export default function Home() {
       </div>
 
       <header 
-        className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 shadow-lg sticky top-0 z-40 cursor-pointer hover:from-blue-700 hover:via-blue-800 hover:to-blue-700 transition-all duration-200"
+        className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 shadow-lg sticky top-0 z-40 cursor-pointer hover:from-blue-700 hover:via-blue-800 hover:to-blue-700 transition-all duration-200 relative"
         onClick={handleBackToViewAll}
       >
         <div className="container mx-auto px-4 py-4 sm:py-6">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setInfoDialogOpen(true);
+            }}
+            className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white hover:text-blue-100 transition-colors text-sm sm:text-base font-medium underline"
+            aria-label="What is this?"
+          >
+            What is this?
+          </button>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-white text-center drop-shadow-md">
             🎬 Booth Bingo
           </h1>
@@ -537,6 +549,11 @@ export default function Home() {
         onClose={() => setCommentDialog({ isOpen: false, cellIndex: -1, comment: '' })}
         onSave={handleSaveComment}
         onDelete={handleDeleteComment}
+      />
+
+      <InfoDialog
+        isOpen={infoDialogOpen}
+        onClose={() => setInfoDialogOpen(false)}
       />
 
       {middleSquareDialog.isOpen && (

@@ -46,7 +46,7 @@ export default function Leaderboard({ data }: LeaderboardProps) {
           <div className="bg-gradient-to-r from-blue-400 via-blue-300 to-blue-400 border-2 border-blue-500 rounded-xl p-3 sm:p-4 shadow-md">
             <div className="text-xs sm:text-sm font-semibold text-blue-900">🥇 Highest Score</div>
             <div className="text-base sm:text-lg font-bold text-blue-950 mt-1">
-              {data.mostBingos.join(', ')}}
+              {data.mostBingos.join(', ')}
             </div>
           </div>
         )}

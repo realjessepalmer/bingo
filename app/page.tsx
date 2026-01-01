@@ -434,17 +434,36 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow-md p-4">
-        <h1 className="text-2xl sm:text-3xl font-bold text-center">Booth Bingo</h1>
+      {/* Development Notice Banner */}
+      <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 border-b-2 border-yellow-500 shadow-md">
+        <div className="container mx-auto px-4 py-2 sm:py-3">
+          <p className="text-center text-xs sm:text-sm font-semibold text-yellow-900">
+            🚧 This app is still actively being developed and bugs are getting fixed 🚧
+          </p>
+        </div>
+      </div>
+
+      <header className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 shadow-lg sticky top-0 z-40">
+        <div className="container mx-auto px-4 py-4 sm:py-6">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-white text-center drop-shadow-md">
+            🎬 Booth Bingo
+          </h1>
+          <p className="text-blue-100 text-center mt-1 sm:mt-2 text-xs sm:text-base">
+            Film Festival Projectionist Edition
+          </p>
+        </div>
       </header>
 
-      <main className="container mx-auto p-2 sm:p-4">
+      <main className="container mx-auto px-2 sm:px-4 py-4 sm:py-6 max-w-7xl">
         {viewMode === 'view-all' ? (
           <div className="space-y-6">
             <div className="flex justify-center">
               <button
                 onClick={handleReset}
-                className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors font-bold text-lg shadow-lg"
+                className="px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg 
+                  hover:from-red-700 hover:to-red-800 active:scale-95 
+                  transition-all duration-200 font-bold text-base sm:text-lg 
+                  shadow-lg hover:shadow-xl"
               >
                 🔴 RESET ALL DATA (Testing Only)
               </button>
@@ -457,7 +476,9 @@ export default function Home() {
             <div className="flex items-center justify-between flex-wrap gap-2">
               <button
                 onClick={handleBackToViewAll}
-                className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
+                className="px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white 
+                  rounded-lg hover:from-gray-600 hover:to-gray-700 active:scale-95 
+                  transition-all duration-200 font-semibold shadow-md hover:shadow-lg"
               >
                 ← View All
               </button>
@@ -508,25 +529,26 @@ export default function Home() {
       />
 
       {middleSquareDialog.isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-sm w-full p-6">
-            <h3 className="text-lg font-bold mb-4">Edit Middle Square</h3>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl max-w-sm w-full p-4 sm:p-6 border border-gray-200 animate-scale-in">
+            <h3 className="text-lg sm:text-xl font-bold mb-4 text-gray-800">Edit Middle Square</h3>
             <input
               type="text"
               value={middleSquareDialog.text}
               onChange={(e) => setMiddleSquareDialog({ ...middleSquareDialog, text: e.target.value })}
               maxLength={50}
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+              className="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-2 transition-all duration-200"
               placeholder="FREE"
               autoFocus
             />
             <div className="text-xs text-gray-500 mb-4 text-right">
               {middleSquareDialog.text.length}/50
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 sm:gap-3">
               <button
                 onClick={() => setMiddleSquareDialog({ isOpen: false, text: 'FREE' })}
-                className="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"
+                className="flex-1 px-4 py-2.5 bg-gray-200 text-gray-700 rounded-lg 
+                  hover:bg-gray-300 active:scale-95 transition-all duration-200 font-semibold"
               >
                 Cancel
               </button>
@@ -535,7 +557,9 @@ export default function Home() {
                   handleSaveMiddleSquare(middleSquareDialog.text);
                   setMiddleSquareDialog({ isOpen: false, text: 'FREE' });
                 }}
-                className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white 
+                  rounded-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 
+                  transition-all duration-200 font-semibold shadow-md"
               >
                 Save
               </button>
@@ -544,14 +568,14 @@ export default function Home() {
         </div>
       )}
 
-      <footer className="bg-white border-t border-gray-200 py-4 mt-8">
-        <div className="container mx-auto px-4 text-center text-sm text-gray-600">
+      <footer className="bg-white border-t border-gray-200 py-4 sm:py-6 mt-8 sm:mt-12">
+        <div className="container mx-auto px-4 text-center text-xs sm:text-sm text-gray-600">
           Vibe coded by{' '}
           <a
             href="https://loveandscience.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-800 underline"
+            className="text-blue-600 hover:text-blue-800 underline font-medium transition-colors"
           >
             Jesse Palmer
           </a>

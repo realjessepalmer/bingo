@@ -40,7 +40,7 @@ export default function LockCountdown({ remainingMs, onExpire }: LockCountdownPr
   const isLow = displayTime < 30000; // Less than 30 seconds
 
   return (
-    <div className={`flex items-center gap-2 px-4 py-2 rounded-md ${isLow ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'}`}>
+    <div className={`flex items-center gap-2 px-4 py-2 rounded-lg shadow-md ${isLow ? 'bg-gradient-to-r from-red-100 to-red-200 text-red-700 border-2 border-red-400' : 'bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 border-2 border-blue-400'}`}>
       <div className="text-sm font-medium">Lock expires in:</div>
       <div className={`text-lg font-bold font-mono ${isLow ? 'text-red-600' : 'text-blue-600'}`}>
         {formattedTime}

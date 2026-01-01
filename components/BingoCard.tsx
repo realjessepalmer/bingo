@@ -86,7 +86,7 @@ export default function BingoCard({
   return (
     <div className={`bingo-card ${isLocked ? 'opacity-50' : ''} ${!isEditable ? 'pointer-events-none' : ''}`}>
       <div className={numbersOnly ? '' : 'overflow-x-auto -mx-2 sm:mx-0'}>
-        <div className={`grid grid-cols-5 gap-1.5 sm:gap-1 p-1.5 sm:p-2 bg-white rounded-lg shadow-md ${numbersOnly ? '' : 'min-w-[750px] sm:min-w-0'}`}>
+        <div className={`grid grid-cols-5 gap-1.5 sm:gap-2 p-1.5 sm:p-2 bg-white rounded-lg shadow-md ${numbersOnly ? '' : 'min-w-[750px] sm:min-w-0'}`}>
         {BINGO_ITEMS.map((item, index) => {
           const isCenter = index === CENTER_SQUARE_INDEX;
           const marked = isMarked(index);
@@ -98,15 +98,17 @@ export default function BingoCard({
             <div
               key={index}
               className={`
-                relative aspect-square border-2 rounded
+                relative aspect-square border-2 rounded-lg
                 flex flex-col text-center overflow-hidden
-                ${compact ? 'min-h-[50px] sm:min-h-[60px]' : 'min-h-[70px] sm:min-h-[60px]'}
-                transition-all
-                ${compact ? 'p-1 sm:p-1.5 text-[10px] sm:text-[11px]' : 'p-2 sm:p-2 text-sm sm:text-base'}
-                ${marked || isCenter ? 'bg-green-200 border-green-500' : 'bg-gray-50 border-gray-300'}
-                ${locked ? 'opacity-75' : ''}
-                ${canEdit ? 'cursor-pointer hover:bg-gray-100 active:bg-gray-200' : 'cursor-default'}
-                ${isCenter ? 'font-bold' : ''}
+                transition-all duration-200 ease-in-out
+                ${compact ? 'min-h-[50px] sm:min-h-[60px]' : 'min-h-[70px] sm:min-h-[80px]'}
+                ${compact ? 'p-1 sm:p-1.5 text-[10px] sm:text-[11px]' : 'p-2 sm:p-3 text-sm sm:text-base'}
+                ${marked || isCenter 
+                  ? 'bg-gradient-to-br from-green-100 to-green-200 border-green-400 shadow-md' 
+                  : 'bg-white border-gray-200 hover:border-gray-300'}
+                ${locked ? 'opacity-60 grayscale' : ''}
+                ${canEdit ? 'cursor-pointer hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]' : 'cursor-default'}
+                ${isCenter ? 'font-bold bg-gradient-to-br from-blue-100 to-blue-200 border-blue-400 shadow-md' : ''}
               `}
               title={item} // Show full text on hover
               onClick={() => handleCellClick(index)}
@@ -139,15 +141,21 @@ export default function BingoCard({
                       e.stopPropagation();
                       if (onEditMiddleSquare) onEditMiddleSquare();
                     }}
-                    className="w-full h-full text-center bg-transparent border-none outline-none font-bold text-base sm:text-base"
+                    className="w-full h-full text-center bg-transparent border-none outline-none font-bold text-sm sm:text-lg"
                     placeholder="FREE"
                   />
                 </div>
               ) : (
                 <>
                   {numbersOnly ? (
-                    <div className="w-full h-full flex items-center justify-center text-lg font-bold">
-                      {index + 1}
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className={`
+                        text-2xl sm:text-3xl font-bold
+                        ${marked ? 'text-green-700' : 'text-gray-600'}
+                        transition-colors duration-200
+                      `}>
+                        {index + 1}
+                      </div>
                     </div>
                   ) : compact ? (
                     <div className="w-full h-full flex items-center justify-center px-1">

@@ -31,15 +31,15 @@ export const BINGO_ITEMS = [
   'FREE - I\'m editable!', // Center square (index 12)
   'CPL is "dcp_output" or something similar',
   'KDM ends before film does',
-  'Started wrong movie',
-  'Hot tub broken',
+  'Started wrong movie', 
+  'Audience complains about volume being too loud after filmmaker tech check',
   'Filmmaker says they\'re bringing new DCP with them',
   'Last minute KDM/print with no chance of testing film',
   'Interesting aspect ratio choices',
   'Filmmaker asks for color correction',
   'Red tail light',
   'Talent complains about spotlight being too bright',
-  'Audience complains about volume being too loud after filmmaker tech check',
+  'Hot tub broken', 
   'Filmmaker barges in to booth uninvited',
 ];
 

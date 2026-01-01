@@ -48,11 +48,11 @@ export default function CommentDialog({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-        <h3 className="text-lg font-bold mb-2">Add Comment</h3>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+      <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 border border-gray-200 animate-scale-in">
+        <h3 className="text-lg sm:text-xl font-bold mb-2 text-gray-800">Add Comment</h3>
         <p className="text-sm text-gray-600 mb-4">
-          <strong>{cellItem}</strong>
+          <strong className="text-gray-800">{cellItem}</strong>
         </p>
         <textarea
           ref={textareaRef}
@@ -60,29 +60,36 @@ export default function CommentDialog({
           onChange={(e) => setComment(e.target.value)}
           placeholder="OK, tell us what happened..."
           maxLength={200}
-          className="w-full h-32 p-3 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full h-32 p-3 border-2 border-gray-300 rounded-lg resize-none 
+            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+            transition-all duration-200"
         />
         <div className="text-xs text-gray-500 mt-1 text-right">
           {comment.length}/200
         </div>
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-2 sm:gap-3 mt-4">
           {existingComment && (
             <button
               onClick={handleDelete}
-              className="flex-1 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+              className="flex-1 px-4 py-2.5 bg-gradient-to-r from-red-500 to-red-600 text-white 
+                rounded-lg hover:from-red-600 hover:to-red-700 active:scale-95 
+                transition-all duration-200 font-semibold shadow-md"
             >
               Delete
             </button>
           )}
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"
+            className="flex-1 px-4 py-2.5 bg-gray-200 text-gray-700 rounded-lg 
+              hover:bg-gray-300 active:scale-95 transition-all duration-200 font-semibold"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+            className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white 
+              rounded-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 
+              transition-all duration-200 font-semibold shadow-md"
           >
             Save
           </button>
@@ -91,4 +98,3 @@ export default function CommentDialog({
     </div>
   );
 }
-

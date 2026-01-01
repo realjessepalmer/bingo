@@ -103,7 +103,7 @@ export default function BingoConfirmDialog({
       }}
     >
       <div
-        className="bg-white rounded-lg shadow-2xl p-4 sm:p-6 relative border-2 border-green-500 pointer-events-auto"
+        className="bg-white rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-6 relative border-2 border-green-500 pointer-events-auto animate-scale-in"
         onMouseDown={handleMouseDown}
         style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
       >
@@ -124,14 +124,18 @@ export default function BingoConfirmDialog({
           <button
             onClick={handleCancel}
             type="button"
-            className="flex-1 px-3 py-2 sm:px-4 sm:py-3 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 active:bg-gray-500 transition-colors font-medium text-sm sm:text-base"
+            className="flex-1 px-3 py-2 sm:px-4 sm:py-3 bg-gray-200 text-gray-700 
+              rounded-lg hover:bg-gray-300 active:scale-95 transition-all duration-200 
+              font-medium text-sm sm:text-base"
           >
             Cancel
           </button>
           <button
             onClick={handleConfirm}
             type="button"
-            className="flex-1 px-3 py-2 sm:px-4 sm:py-3 bg-green-500 text-white rounded-md hover:bg-green-600 active:bg-green-700 transition-colors font-medium text-sm sm:text-base"
+            className="flex-1 px-3 py-2 sm:px-4 sm:py-3 bg-gradient-to-r from-green-500 to-green-600 
+              text-white rounded-lg hover:from-green-600 hover:to-green-700 active:scale-95 
+              transition-all duration-200 font-medium text-sm sm:text-base shadow-md"
           >
             Confirm
           </button>

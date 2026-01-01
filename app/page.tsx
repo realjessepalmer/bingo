@@ -476,24 +476,41 @@ export default function Home() {
           </div>
         ) : (
           <div className="space-y-4">
+            {/* Mobile: View All button and lock on same row */}
+            {/* Desktop: All items in a row */}
             <div className="flex items-center justify-between flex-wrap gap-2">
-              <button
-                onClick={handleBackToViewAll}
-                className="px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white 
-                  rounded-lg hover:from-gray-600 hover:to-gray-700 active:scale-95 
-                  transition-all duration-200 font-semibold shadow-md hover:shadow-lg"
-              >
-                ← View All
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleBackToViewAll}
+                  className="px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white 
+                    rounded-lg hover:from-gray-600 hover:to-gray-700 active:scale-95 
+                    transition-all duration-200 font-semibold shadow-md hover:shadow-lg"
+                >
+                  ← View All
+                </button>
+                {lockRemainingMs > 0 && (
+                  <div className="sm:hidden">
+                    <LockCountdown remainingMs={lockRemainingMs} onExpire={handleLockExpire} />
+                  </div>
+                )}
+              </div>
               {selectedTheatre && (
-                <div>
-                  <h2 className="text-xl font-bold">{selectedTheatre}{selectedTheatre === 'Festival' ? ' 🌭' : ''}</h2>
+                <div className="hidden sm:block">
+                  <h2 className="text-xl sm:text-2xl font-bold">{selectedTheatre}{selectedTheatre === 'Festival' ? ' 🌭' : ''}</h2>
                 </div>
               )}
               {lockRemainingMs > 0 && (
-                <LockCountdown remainingMs={lockRemainingMs} onExpire={handleLockExpire} />
+                <div className="hidden sm:block">
+                  <LockCountdown remainingMs={lockRemainingMs} onExpire={handleLockExpire} />
+                </div>
               )}
             </div>
+            {/* Mobile: Theatre name centered above bingo card */}
+            {selectedTheatre && (
+              <div className="text-center sm:hidden">
+                <h2 className="text-xl font-bold">{selectedTheatre}{selectedTheatre === 'Festival' ? ' 🌭' : ''}</h2>
+              </div>
+            )}
 
             {currentCardData && selectedTheatre && (
               <BingoCard

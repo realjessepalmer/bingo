@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Booth Bingo",
-  description: "Bingo app for film festival projectionists",
+  description: "PSIFF 2026 Edition",
 };
 
 export default function RootLayout({

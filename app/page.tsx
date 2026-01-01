@@ -580,16 +580,21 @@ export default function Home() {
       )}
 
       <footer className="bg-white border-t border-gray-200 py-4 sm:py-6 mt-8 sm:mt-12">
-        <div className="container mx-auto px-4 text-center text-xs sm:text-sm text-gray-600">
-          Vibe coded by{' '}
-          <a
-            href="https://loveandscience.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-800 underline font-medium transition-colors"
-          >
-            Jesse Palmer
-          </a>
+        <div className="container mx-auto px-4 text-center text-xs sm:text-sm text-gray-600 space-y-2">
+          <div>
+            Vibe coded by{' '}
+            <a
+              href="https://loveandscience.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 underline font-medium transition-colors"
+            >
+              Jesse Palmer
+            </a>
+          </div>
+          <div>
+            Hey! We're looking for designers: UI/UX, branding, etc.
+          </div>
         </div>
       </footer>
     </div>

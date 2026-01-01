@@ -443,7 +443,10 @@ export default function Home() {
         </div>
       </div>
 
-      <header className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 shadow-lg sticky top-0 z-40">
+      <header 
+        className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 shadow-lg sticky top-0 z-40 cursor-pointer hover:from-blue-700 hover:via-blue-800 hover:to-blue-700 transition-all duration-200"
+        onClick={handleBackToViewAll}
+      >
         <div className="container mx-auto px-4 py-4 sm:py-6">
           <h1 className="text-2xl sm:text-4xl font-extrabold text-white text-center drop-shadow-md">
             🎬 Booth Bingo
